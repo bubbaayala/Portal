@@ -1,0 +1,42 @@
+{% extends 'App/base.html' %}
+<title>Portal</title>
+{% block body %}
+  {% if all_apps %}
+    {% for app in all_apps %}
+    <div class="col-sm-4 col-lg-2">
+      <div class="thumbnail">
+        <div class="caption">
+
+          <h2>{{ app.app_name }}</h2>
+          <h4>{{ app.team_name }}</h4>
+          <h6>{{ app.status }}</h6>
+
+          <!-- View Details -->
+          <a href="{% url 'App:detail' app.id %}" class="btn btn-primary btn-sm" role="button">Application Details</a>
+
+          <form action="{% url 'App:app-update' app.id %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="app_id" value="{{ app.id }}" />
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+          </form>
+
+          <form action="{% url 'App:app-delete' app.id %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="app_id" value="{{ app.id }}" />
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <h3>you do not have any apps</h3>
+  {% endif %}
+{% endblock %}
+
+<li> <a href="{% url 'App:detail' app.id %}">{{ app.app_name }}</a> </li>

@@ -1,0 +1,67 @@
+{% extends 'App/base.html' %}
+{% block title %}App Details{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+  <div class="row">
+
+       <!-- Left Application Info -->
+       <div class="col-sm-4 col-md-3">
+           <div class="panel panel-default">
+               <div class="panel-body">
+                   <h1>{{ app.app_name }} <small>{{ app.team_name }}</small></h1>
+                   <h2>{{ app.status }}</h2>
+               </div>
+           </div>
+       </div>
+
+    </div>
+</div>
+
+<!--Right Details of Application-->
+<div class="col-sm-8 col-md-9">
+
+  <ul class="nav nav-pills" style="margin-bottom: 10px;">
+    <li role="presentation"><a href="{% url 'App:appdetail-create' app.id %}">Add Details</a></li>
+  </ul>
+
+  <ul class="nav nav-pills" style="margin-bottom: 10px;">
+    <li role="presentation"><a href="#">Update Details</a></li>
+  </ul>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <h3>Application Details</h3>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Repo Link</th>
+            <th>Manage Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appdetail in app.appdetail_set.all %}
+          <tr>
+            <td>{{ appdetail.repo_link }}</td>
+            <td>{{ appdetail.team_manager_email }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+<!--
+<h1>{{ app.app_name }}</h1>
+<h3>{{ app.team_name }}</h3>
+
+<ul>
+{% for appdetail in app.appdetail_set.all %}
+  <li>{{ appdetail.team_manager_email }}</li>
+  <li>{{ appdetail.repo_link }}</li>
+  {% endfor %}
+</ul> -->
